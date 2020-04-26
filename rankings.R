@@ -26,7 +26,12 @@ ConservativeScore <- function(pam_rank,con_rank,dvd_rank,beta_rank){
 
 buylist <- readr::read_csv('buylist.csv', col_types = 'c') %>% dplyr::pull()
 
-sectorWeights <- 
+sectorWeights <- c('cond','cons','comm','rlst','inft','hlth','finl','matr','enrs','indu','util') %>%
+  stringr::str_to_upper() %>%
+  paste('Index') %>%
+  Rblpapi::bdp('PERCENT_WEIGHT')
+
+
 
 readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%
   dplyr::filter(DATE <= Sys.Date()) %>%
