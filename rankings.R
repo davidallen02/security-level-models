@@ -109,7 +109,7 @@ dat_conservative <- dat %>%
     TARGET_WEIGHT_ADJ = TARGET_WEIGHT - CUM_WEIGHT_ADJ,
   ) %>%
   dplyr::filter(TARGET_WEIGHT_ADJ > 0) %>%
-  dplyr::select(TICKER, GICS_SECTOR_NAME, GROWTH_RANK, TARGET_WEIGHT_ADJ, MAX_WEIGHT) %>%
+  dplyr::select(TICKER, GICS_SECTOR_NAME, CONSERVATIVE_RANK, TARGET_WEIGHT_ADJ, MAX_WEIGHT) %>%
   readr::write_csv('conservative-rankings-weights.csv')
 
 
