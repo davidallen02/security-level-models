@@ -82,13 +82,20 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%
     GROWTH_RANK       = GROWTH_SCORE %>% rank(),
     CONSERVATIVE_RANK = CONSERVATIVE_SCORE %>% rank(),
     TARGET_WEIGHT     = 5  %>% divide_by(GICS_SECTOR_WEIGHT) %>% multiply_by(100) %>% min(100),
+    CUM_WEIGHT        = cumsum(TARGET_WEIGHT),
+    CUM_WEIGHT_ADJ    = dplyr::case_when(
+      CUM_WEIGHT > 100 ~ CUM_WEIGHT - 100,
+      TRUE ~ 0
+    ),
+    TARGET_WEIGHT_ADJ = TARGET_WEIGHT - CUM_WEIGHT_ADJ,
     MAX_WEIGHT        = 10 %>% divide_by(GICS_SECTOR_WEIGHT) %>% multiply_by(100) %>% min(100)
     
-  )
+  ) %>%
+  dplyr::filter(TARGET_WEIGHT_ADJ > 0) 
 
 dat %>% readr::write_csv('full-data.csv')
-dat %>% 
-  dplyr::select(TICKER, GICS_SECTOR_NAME, GROWTH_RANK, 
-                CONSERVATIVE_RANK, TARGET_WEIGHT, MAX_WEIGHT) %>%
+dat %>%
+  dplyr::select(TICKER, GICS_SECTOR_NAME, GROWTH_RANK,
+                CONSERVATIVE_RANK, TARGET_WEIGHT_ADJ, MAX_WEIGHT) %>%
   dplyr::arrange(GICS_SECTOR_NAME, GROWTH_RANK) %>%
     readr::write_csv('rankings-weights.csv')
