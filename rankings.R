@@ -2,6 +2,8 @@ library(magrittr)
 
 Rblpapi::blpConnect()
 
+
+# Functions -------------------------------------------------------------------------
 # Define function to make retrieving Bloomberg data easier/neater
 f <- function(tickers, field, type = 'Equity'){
   y <- tickers %>%
@@ -28,11 +30,11 @@ ConservativeScore <- function(pam_rank,con_rank,dvd_rank,beta_rank){
 }
 
 # Define rank mapping function
-RankMap <- function(rank, n){
+RankMap <- function(rank, n, source.count){
   if(rank == 0){
     return(0)
   } else {
-    rank <- 1000 * (1 - (rank - 1)/n)
+    rank <- 1000 * (1 - (rank - 1)/(n - source.count))
     return(rank)
   }
 }
@@ -98,12 +100,12 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
     # Rank securities by growth/conservative score
     GROWTH_RANK            = GROWTH_SCORE %>% 
       rank(ties.method = 'first') %>% 
-      RankMap(SECTOR_PEERS) %>% 
+      RankMap(SECTOR_PEERS, sum(SOURCE)) %>% 
       multiply_by(!SOURCE),
     
     CONSERVATIVE_RANK      = CONSERVATIVE_SCORE %>% 
       rank(ties.method = 'first') %>% 
-      RankMap(SECTOR_PEERS) %>% 
+      RankMap(SECTOR_PEERS, sum(SOURCE)) %>% 
       multiply_by(!SOURCE),
     
     # Establish target/max weight in sector model using target for overall portfolio weight
@@ -112,8 +114,8 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
       multiply_by(100) %>% 
       min(100) %>% 
       multiply_by(!SOURCE),
-   
-     MAX_WEIGHT        = 10 %>% 
+    
+    MAX_WEIGHT        = 10 %>% 
       divide_by(GICS_SECTOR_WEIGHT) %>% 
       multiply_by(100) %>% 
       min(100) %>% 
