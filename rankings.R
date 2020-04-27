@@ -26,14 +26,30 @@ ConservativeScore <- function(pam_rank,con_rank,dvd_rank,beta_rank){
 
 buylist <- readr::read_csv('buylist.csv', col_types = 'c') %>% dplyr::pull()
 
-sectorWeights <- c('cond','cons','comm','rlst','inft','hlth','finl','matr','enrs','indu','util') %>%
+sectorWeights <- c('cond','cons','tels','rlst','inft','hlth','finl','matr','enrs','indu','util') %>%
   stringr::str_to_upper() %>%
+  paste0('S5', .) %>%
   paste('Index') %>%
-  Rblpapi::bdp('PERCENT_WEIGHT')
+  Rblpapi::bdp(c('GICS_SECTOR_NAME','PERCENT_WEIGHT')) %>%
+  dplyr::mutate(
+    GICS_SECTOR_WEIGHT = PERCENT_WEIGHT,
+    GICS_SECTOR_NAME = c('Consumer Discretionary',
+                         'Consumer Staples',
+                         'Communication Services',
+                         'Real Estate',
+                         'Information Technology',
+                         'Health Care',
+                         'Financials',
+                         'Materials',
+                         'Energy',
+                         'Industrials',
+                         'Utilities')
+  ) %>%
+  dplyr::select(GICS_SECTOR_WEIGHT, GICS_SECTOR_NAME)
 
 
 
-readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%
+dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%
   dplyr::filter(DATE <= Sys.Date()) %>%
   dplyr::arrange(desc(DATE)) %>%
   dplyr::distinct(TICKER, .keep_all = TRUE) %>%
@@ -45,8 +61,8 @@ readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%
     EQY_DVD_YLD_IND    = TICKER %>% f('EQY_DVD_YLD_IND'),
     EQY_BETA           = TICKER %>% f('EQY_BETA'),
     GICS_SECTOR_NAME   = TICKER %>% f('GICS_SECTOR_NAME'),
-    GICS_SECTOR_WEIGHT = GICS_SECTOR_NAME %>% f('PERCENT_WEIGHT', type = "Index")
   ) %>%
+  dplyr::left_join(sectorWeights, by = 'GICS_SECTOR_NAME') %>%
   dplyr::group_by(GICS_SECTOR_NAME) %>%
   dplyr::mutate(
     PAM_UPSIDE            = PRICE_TARGET/PX_LAST,
@@ -64,7 +80,15 @@ readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%
                                               DVD_YLD_RANK, 
                                               BETA_RANK),
     GROWTH_RANK       = GROWTH_SCORE %>% rank(),
-    CONSERVATIVE_RANK = CONSERVATIVE_SCORE %>% rank()
+    CONSERVATIVE_RANK = CONSERVATIVE_SCORE %>% rank(),
+    TARGET_WEIGHT     = 5  %>% divide_by(GICS_SECTOR_WEIGHT) %>% multiply_by(100) %>% min(100),
+    MAX_WEIGHT        = 10 %>% divide_by(GICS_SECTOR_WEIGHT) %>% multiply_by(100) %>% min(100)
     
-  ) %>% 
-  readr::write_csv('rankings.csv')
+  )
+
+dat %>% readr::write_csv('full-data.csv')
+dat %>% 
+  dplyr::select(TICKER, GICS_SECTOR_NAME, GROWTH_RANK, 
+                CONSERVATIVE_RANK, TARGET_WEIGHT, MAX_WEIGHT) %>%
+  dplyr::arrange(GICS_SECTOR_NAME, GROWTH_RANK) %>%
+    readr::write_csv('rankings-weights.csv')
