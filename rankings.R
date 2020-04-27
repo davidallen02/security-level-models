@@ -85,7 +85,7 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%
     MAX_WEIGHT        = 10 %>% divide_by(GICS_SECTOR_WEIGHT) %>% multiply_by(100) %>% min(100))
 
 dat_growth <- dat %>%
-  arrange(GICS_SECTOR_NAME, GROWTH_RANK) %>%
+  dplyr::arrange(GICS_SECTOR_NAME, GROWTH_RANK) %>%
   dplyr::mutate(
     CUM_WEIGHT        = cumsum(TARGET_WEIGHT),
     CUM_WEIGHT_ADJ    = dplyr::case_when(
@@ -94,10 +94,12 @@ dat_growth <- dat %>%
     ),
     TARGET_WEIGHT_ADJ = TARGET_WEIGHT - CUM_WEIGHT_ADJ,
   ) %>%
-  dplyr::filter(TARGET_WEIGHT_ADJ > 0) 
+  dplyr::filter(TARGET_WEIGHT_ADJ > 0) %>%
+  dplyr::select(TICKER, GICS_SECTOR_NAME, GROWTH_RANK, TARGET_WEIGHT_ADJ, MAX_WEIGHT) %>%
+  readr::write_csv('growth-rankings-weights.csv')
 
 dat_conservative <- dat %>%
-  arrange(GICS_SECTOR_NAME, CONSERVATIVE_RANK) %>%
+  dplyr::arrange(GICS_SECTOR_NAME, CONSERVATIVE_RANK) %>%
   dplyr::mutate(
     CUM_WEIGHT        = cumsum(TARGET_WEIGHT),
     CUM_WEIGHT_ADJ    = dplyr::case_when(
@@ -106,12 +108,11 @@ dat_conservative <- dat %>%
     ),
     TARGET_WEIGHT_ADJ = TARGET_WEIGHT - CUM_WEIGHT_ADJ,
   ) %>%
-  dplyr::filter(TARGET_WEIGHT_ADJ > 0)     
+  dplyr::filter(TARGET_WEIGHT_ADJ > 0) %>%
+  dplyr::select(TICKER, GICS_SECTOR_NAME, GROWTH_RANK, TARGET_WEIGHT_ADJ, MAX_WEIGHT) %>%
+  readr::write_csv('conservative-rankings-weights.csv')
 
 
 dat %>% readr::write_csv('full-data.csv')
-dat %>%
-  dplyr::select(TICKER, GICS_SECTOR_NAME, GROWTH_RANK,
-                CONSERVATIVE_RANK, TARGET_WEIGHT_ADJ, MAX_WEIGHT) %>%
-  dplyr::arrange(GICS_SECTOR_NAME, GROWTH_RANK) %>%
-    readr::write_csv('rankings-weights.csv')
+
+  
