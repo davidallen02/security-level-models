@@ -79,6 +79,7 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
   # Join GICS sector weights data
   dplyr::left_join(sectorWeights, by = 'GICS_SECTOR_NAME') %>%
   dplyr::group_by(GICS_SECTOR_NAME) %>%
+  dplyr::add_count(name = 'SECTOR_PEERS') %>%
   dplyr::mutate(
     # Manipulate data for growth/conservative scoring
     PAM_UPSIDE            = PRICE_TARGET/PX_LAST,
@@ -96,8 +97,9 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
                                               DVD_YLD_RANK, 
                                               BETA_RANK),
     # Rank securities by growth/conservative score
-    GROWTH_RANK       = GROWTH_SCORE %>% rank(),
-    CONSERVATIVE_RANK = CONSERVATIVE_SCORE %>% rank(),
+    GROWTH_RANK            = GROWTH_SCORE %>% rank(ties.method = 'first') %>% RankMap(SECTOR_PEERS),
+    CONSERVATIVE_RANK      = CONSERVATIVE_SCORE %>% rank(ties.method = 'first') %>% RankMap(SECTOR_PEERS),
+
     # Establish target/max weight in sector model using target for overall portfolio weight
     TARGET_WEIGHT     = 5  %>% divide_by(GICS_SECTOR_WEIGHT) %>% multiply_by(100) %>% min(100),
     MAX_WEIGHT        = 10 %>% divide_by(GICS_SECTOR_WEIGHT) %>% multiply_by(100) %>% min(100))
@@ -134,4 +136,4 @@ dat_conservative <- dat %>%
 
 dat %>% readr::write_csv('full-data.csv')
 
-  
+    
