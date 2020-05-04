@@ -151,7 +151,10 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
       multiply_by(100) %>%
       round(2) %>%
       min(1) %>% 
-      multiply_by(!SOURCE)
+      multiply_by(!SOURCE),
+    
+    # Removing backslashes (i.e. BRK/B) to match Tamarac formatting
+    TICKER = TICKER %>% stringr::str_remove_all('/')
   )
 
 # Adjust target weights using growth rank
