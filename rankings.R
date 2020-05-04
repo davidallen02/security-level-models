@@ -42,7 +42,7 @@ RankMap <- function(rank, n, source.count){
 # Define security ranks by model
 SecurityRank <- function(dat, model){
   foo <- dat %>%
-    dplyr::arrange(GICS_SECTOR_NAME, desc(GROWTH_RANK)) %>%  # ensures highest ranking securities are in model
+    dplyr::arrange(GICS_SECTOR_NAME, desc(RANK)) %>%  # ensures highest ranking securities are in model
     dplyr::mutate(
       CUM_WEIGHT        = cumsum(TARGET_WEIGHT),  
       CUM_WEIGHT_ADJ    = dplyr::case_when(
@@ -151,8 +151,11 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
   )
 
 # Adjust target weights using growth rank
-dat_growth <- dat %>% SecurityRank('Growth')
-dat_conservative <- dat %>% SecurityRank('Conservative')
+dat_growth <- dat %>% 
+  dplyr::mutate(RANK = GROWTH_RANK) %>% SecurityRank('Growth')
+dat_conservative <- dat %>%
+  dplyr::mutate(RANK = CONSERVATIVE_RANK) %>%
+  SecurityRank('Conservative')
 
 upload <- dplyr::bind_rows(dat_growth, dat_conservative)
 
