@@ -46,7 +46,7 @@ SecurityRank <- function(dat, model){
     dplyr::mutate(
       CUM_WEIGHT        = cumsum(TARGET_WEIGHT),  
       CUM_WEIGHT_ADJ    = dplyr::case_when(
-        CUM_WEIGHT > 100 ~ CUM_WEIGHT - 100,  
+        CUM_WEIGHT > 1 ~ CUM_WEIGHT - 1,  
         TRUE ~ 0
       ),
       TARGET_WEIGHT_ADJ = TARGET_WEIGHT - CUM_WEIGHT_ADJ,
@@ -137,16 +137,16 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
       multiply_by(!SOURCE),
     
     # Establish target/max weight in sector model using target for overall portfolio weight
-    TARGET_WEIGHT     = 5  %>% 
+    TARGET_WEIGHT     = .05  %>% 
       divide_by(GICS_SECTOR_WEIGHT) %>% 
-      multiply_by(100) %>% 
-      min(100) %>% 
+      divide_by(100) %>% 
+      min(1) %>% 
       multiply_by(!SOURCE),
     
-    MAX_WEIGHT        = 10 %>% 
+    MAX_WEIGHT        = .10 %>% 
       divide_by(GICS_SECTOR_WEIGHT) %>% 
-      multiply_by(100) %>% 
-      min(100) %>% 
+      divide_by(100) %>% 
+      min(1) %>% 
       multiply_by(!SOURCE)
   )
 
