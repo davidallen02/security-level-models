@@ -129,23 +129,27 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
     GROWTH_RANK            = GROWTH_SCORE %>% 
       rank(ties.method = 'first') %>% 
       RankMap(SECTOR_PEERS, sum(SOURCE)) %>% 
-      multiply_by(!SOURCE),
+      multiply_by(!SOURCE) %>%
+      round(0),
     
     CONSERVATIVE_RANK      = CONSERVATIVE_SCORE %>% 
       rank(ties.method = 'first') %>% 
       RankMap(SECTOR_PEERS, sum(SOURCE)) %>% 
-      multiply_by(!SOURCE),
+      multiply_by(!SOURCE) %>%
+      round(0),
     
     # Establish target/max weight in sector model using target for overall portfolio weight
     TARGET_WEIGHT     = .05  %>% 
       divide_by(GICS_SECTOR_WEIGHT) %>% 
-      divide_by(100) %>% 
+      multiply_by(100) %>%
+      round(2) %>%
       min(1) %>% 
       multiply_by(!SOURCE),
     
     MAX_WEIGHT        = .10 %>% 
       divide_by(GICS_SECTOR_WEIGHT) %>% 
-      divide_by(100) %>% 
+      multiply_by(100) %>%
+      round(2) %>%
       min(1) %>% 
       multiply_by(!SOURCE)
   )
@@ -159,5 +163,5 @@ dat_conservative <- dat %>%
 
 upload <- dplyr::bind_rows(dat_growth, dat_conservative)
 
-readr::write_csv(upload, 'slm.csv')
+readr::write_csv(upload, 'slm2.csv')
 
