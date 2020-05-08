@@ -4,9 +4,11 @@ buylist <- readr::read_csv('buylist.csv', col_types = 'c') %>%
   dplyr::pull() %>%
   stringr::str_to_upper()
 
+input.path <- '//server1//shared/Tamarac/API/Data/Account Holdings (current).csv'
+
 # Read required columns of `Account Holdings (current).csv`
-dat <- readr::read_csv(
-  file = 'Account Holdings (current)  - safe.csv',
+uncovered <- readr::read_csv(
+  file = input.path,
   col_types           = readr::cols_only(
     Symbol            = readr::col_character(),
     Classification    = readr::col_character(),
@@ -46,3 +48,10 @@ dat <- readr::read_csv(
   ) %>%
   dplyr::mutate(`Model Name` = value) %>%
   dplyr::select('Model Name', 'Symbol', 'Symbol Weight','Symbol Rank','Legacy Position Flag')
+
+covered <- readr::read_csv('slm2.csv', col_types = 'ccnnc')
+
+slm_Upload <- dplyr::bind_rows(uncovered, covered) %>%
+  dplyr::arrange(`Model Name`, desc(`Symbol Weight`))
+
+readr::write_csv('slm-upload.csv')
