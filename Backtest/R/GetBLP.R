@@ -3,10 +3,12 @@ GetBLP <- function(tickers, fld, date){
   xx <- Rblpapi::bdh(
     securities = tickers,
     fields = fld,
-    start.date = date - 100,
+    start.date = date - 365,
     end.date = date
-  ) %>%
+  )  %>%
     dplyr::select(fld) %>%
+    set_colnames('X') %>%
+    dplyr::filter(!is.na(X)) %>%
     dplyr::pull() %>%
     tail(1)
   

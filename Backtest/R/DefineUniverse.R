@@ -1,7 +1,7 @@
 DefineUniverse <- function(index, date){
   
   universe <- Rblpapi::bds(
-    securities = index, 
+    security   = index, 
     field      = 'INDX_MWEIGHT_HIST',
     overrides  = c(
       'END_DATE_OVERRIDE' = date
