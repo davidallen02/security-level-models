@@ -18,6 +18,7 @@ uncovered <- readr::read_csv(
   
   # Keep only common stock securities
   dplyr::filter(`Asset Class` == 'Common Stock') %>%
+  dplyr::filter(!is.na(Sector)) %>%
   
   # Keep only one observation of each security
   dplyr::distinct() %>%
@@ -51,7 +52,6 @@ uncovered <- readr::read_csv(
 
 covered <- readr::read_csv('slm2.csv', col_types = 'ccnnc')
 
-slm_Upload <- dplyr::bind_rows(uncovered, covered) %>%
-  dplyr::arrange(`Model Name`, desc(`Symbol Weight`))
-
-readr::write_csv('slm-upload.csv')
+dplyr::bind_rows(uncovered, covered) %>%
+  dplyr::arrange(`Model Name`, desc(`Symbol Weight`), desc(`Symbol Rank`)) %>%
+  readr::write_csv('slm-upload.csv')
