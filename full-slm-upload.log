@@ -1,0 +1,191 @@
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called 'vctrs'
+Calls: source ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+Error in open.connection(path, "wb") : cannot open the connection
+Calls: %>% ... write_delim -> stream_delim -> open -> open.connection
+In addition: Warning message:
+In open.connection(path, "wb") :
+  cannot open file 'slm-upload.csv': Permission denied
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+Error in open.connection(path, "wb") : cannot open the connection
+Calls: %>% ... write_delim -> stream_delim -> open -> open.connection
+In addition: Warning message:
+In open.connection(path, "wb") :
+  cannot open file 'slm-upload.csv': Permission denied
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
+  there is no package called 'rlang'
+Calls: source ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+
+05AUG2020_13:10:19.109 16036:10892 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+05AUG2020_13:10:19.109 16036:10892 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+
+06AUG2020_13:10:20.137 6412:6772 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+06AUG2020_13:10:20.137 6412:6772 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+
+10AUG2020_13:10:19.171 11628:24116 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+10AUG2020_13:10:19.171 11628:24116 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+
+11AUG2020_13:10:19.452 25260:12236 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+11AUG2020_13:10:19.452 25260:12236 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+
+12AUG2020_13:10:19.388 18748:13028 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+12AUG2020_13:10:19.388 18748:13028 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+
+17AUG2020_13:10:19.882 8992:15780 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+17AUG2020_13:10:19.882 8992:15780 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+
+18AUG2020_13:10:19.901 18612:9280 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+18AUG2020_13:10:19.902 18612:9280 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+
+19AUG2020_13:10:19.821 17888:17136 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+19AUG2020_13:10:19.822 17888:17136 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+
+20AUG2020_13:10:19.905 24232:14432 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+20AUG2020_13:10:19.906 24232:14432 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+
+21AUG2020_13:10:18.718 25956:13148 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+21AUG2020_13:10:18.718 25956:13148 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+
+24AUG2020_13:10:18.948 14084:17020 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+24AUG2020_13:10:18.948 14084:17020 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+
+28AUG2020_13:10:18.781 13248:30560 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+28AUG2020_13:10:18.781 13248:30560 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+
+31AUG2020_13:10:18.709 20136:29228 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+31AUG2020_13:10:18.709 20136:29228 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+
+31AUG2020_16:35:58.982 33560:33588 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+31AUG2020_16:35:58.982 33560:33588 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+
+01SEP2020_13:10:18.770 25020:27796 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+01SEP2020_13:10:18.770 25020:27796 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+
+02SEP2020_13:10:19.731 33720:38020 ERROR blpapi_platformtransporttcp.cpp:671 blpapi.session.transporttcp.{1}.<localhost:8194> Connection failed 
+
+02SEP2020_13:10:19.732 33720:38020 WARN blpapi_platformcontroller.cpp:371 blpapi.session.platformcontroller.{1} Platform: 0 failed 1 consecutive connect attempts, stopped trying to reconnect. 
+Error in blpConnect_Impl(host, port, appName) : Failed to start session.
+Calls: source ... withVisible -> eval -> eval -> <Anonymous> -> blpConnect_Impl
+Execution halted
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
+There were 22 warnings (use warnings() to see them)
