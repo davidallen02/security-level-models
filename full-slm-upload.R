@@ -1,5 +1,7 @@
 library(magrittr)
 
+source('rankings.R')
+
 buylist <- readr::read_csv('buylist.csv', col_types = 'c') %>% 
   dplyr::pull() %>%
   stringr::str_to_upper()
@@ -18,6 +20,12 @@ uncovered <- readr::read_csv(
   
   # Keep only common stock securities
   dplyr::filter(`Asset Class` == 'Common Stock') %>%
+  
+  # Remove securities without an assigned GICS sector
+  dplyr::filter(!is.na(Sector)) %>%
+  
+  # Remove special cases (sub securities)
+  dplyr::filter(!Symbol %in% c('GOOGL','BRKB')) %>%
   
   # Keep only one observation of each security
   dplyr::distinct() %>%
@@ -51,7 +59,6 @@ uncovered <- readr::read_csv(
 
 covered <- readr::read_csv('slm2.csv', col_types = 'ccnnc')
 
-slm_Upload <- dplyr::bind_rows(uncovered, covered) %>%
-  dplyr::arrange(`Model Name`, desc(`Symbol Weight`))
-
-readr::write_csv('slm-upload.csv')
+dplyr::bind_rows(uncovered, covered) %>%
+  dplyr::arrange(`Model Name`, desc(`Symbol Weight`), desc(`Symbol Rank`)) %>%
+  readr::write_csv('slm-upload.csv')

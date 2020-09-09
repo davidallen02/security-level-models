@@ -1,4 +1,4 @@
-library(magrittr)
+  library(magrittr)
 
 Rblpapi::blpConnect()
 
@@ -34,7 +34,7 @@ RankMap <- function(rank, n, source.count){
   if(rank == 0){
     return(0)
   } else {
-    rank <- 1000 * (1 - (rank - 1)/(n - source.count))
+    rank <- 1000 * (1 - (rank - 1)/n)
     return(rank)
   }
 }
@@ -44,9 +44,9 @@ SecurityRank <- function(dat, model){
   foo <- dat %>%
     dplyr::arrange(GICS_SECTOR_NAME, desc(RANK)) %>%  # ensures highest ranking securities are in model
     dplyr::mutate(
-      CUM_WEIGHT        = cumsum(TARGET_WEIGHT),  
+      CUM_WEIGHT        = cumsum(TARGET_WEIGHT),
       CUM_WEIGHT_ADJ    = dplyr::case_when(
-        CUM_WEIGHT > 1 ~ CUM_WEIGHT - 1,  
+        CUM_WEIGHT > 1 ~ CUM_WEIGHT - 1,
         TRUE ~ 0
       ),
       TARGET_WEIGHT_ADJ = TARGET_WEIGHT - CUM_WEIGHT_ADJ,
@@ -59,11 +59,11 @@ SecurityRank <- function(dat, model){
       'Model Name'           = paste(GICS_SECTOR_NAME, '-', model),
       Symbol                 = TICKER %>% stringr::str_to_upper(),
       'Symbol Weight'        = TARGET_WEIGHT_ADJ,
-      'Symbol Rank'          = GROWTH_RANK,
+      'Symbol Rank'          = RANK,
       'Legacy Position Flag' = 'No'
     ) %>%
-    dplyr::select('Model Name', Symbol, 'Symbol Weight','Symbol Rank','Legacy Position Flag') 
-  
+    dplyr::select('Model Name', Symbol, 'Symbol Weight','Symbol Rank','Legacy Position Flag')
+
   return(foo)
 }
 
@@ -159,7 +159,9 @@ dat <- readr::read_csv('./recommendations.txt', col_types = 'cDnnnnnl') %>%  # G
 
 # Adjust target weights using growth rank
 dat_growth <- dat %>% 
-  dplyr::mutate(RANK = GROWTH_RANK) %>% SecurityRank('Growth')
+  dplyr::mutate(RANK = GROWTH_RANK) %>% 
+  SecurityRank('Growth')
+
 dat_conservative <- dat %>%
   dplyr::mutate(RANK = CONSERVATIVE_RANK) %>%
   SecurityRank('Conservative')
