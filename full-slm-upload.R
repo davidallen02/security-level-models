@@ -2,7 +2,7 @@ library(magrittr)
 
 source('rankings.R')
 
-buylist <- readr::read_csv('buylist.csv', col_types = 'c') %>% 
+buylist <- readr::read_csv("//server1/research/david/projects/buy-list/buy-list-equities.csv", col_types = 'c') %>% 
   dplyr::pull() %>%
   stringr::str_to_upper()
 
@@ -57,7 +57,7 @@ uncovered <- readr::read_csv(
   dplyr::mutate(`Model Name` = value) %>%
   dplyr::select('Model Name', 'Symbol', 'Symbol Weight','Symbol Rank','Legacy Position Flag')
 
-covered <- readr::read_csv('slm2.csv', col_types = 'ccnnc')
+covered <- readr::read_csv('slm.csv', col_types = 'ccnnc')
 
 dplyr::bind_rows(uncovered, covered) %>%
   dplyr::arrange(`Model Name`, desc(`Symbol Weight`), desc(`Symbol Rank`)) %>%
